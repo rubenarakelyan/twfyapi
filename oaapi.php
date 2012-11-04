@@ -32,10 +32,12 @@ class OAAPI
         {
             die('ERROR: No API key provided.');
         }
+
         if (!preg_match('/^[A-Za-z0-9]+$/', $key))
         {
             die('ERROR: Invalid API key provided.');
         }
+
         $this->key = $key;
 
         // Create a new instance of cURL

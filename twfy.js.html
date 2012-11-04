@@ -6,31 +6,22 @@
 <script src="twfyapi.js"></script>
 <script>
 // <![CDATA[
-
 function init()
 {
-
 	// Set up a new instance of the API binding
 	var twfyapi = new TWFYAPI.TWFYAPI("DpPSWnGj7XPRGePtfMGWvGqQ");
-
 	// Get a list of Labour MPs in XML format
 	twfyapi.query("getMPs", {"output": "js", "callback": "mps", "party": "labour"});
-
 }
-
 function mps(data)
 {
-
 	// Print out the list
 	for (var i = 0; i < data.length; i++)
 	{
 		document.getElementById("src").innerHTML += data[i].name + "\n";
 	}
-
 }
-
 window.onload = init;
-
 // ]]>
 </script>
 </head>
