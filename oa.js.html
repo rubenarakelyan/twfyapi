@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>OpenAustralia.org API JavaScript interface Test Page</title>
+<script src="oaapi.js"></script>
+<script>
+// <![CDATA[
+
+function init()
+{
+
+	// Set up a new instance of the API binding
+	var oaapi = new OAAPI.OAAPI("ChDS2CGxMoPbGzY2taAuEktx");
+
+	// Get a list of Labor representatives in XML format
+	oaapi.query("getRepresentatives", {"output": "js", "callback": "reps", "party": "labor"});
+
+}
+
+function reps(data)
+{
+
+	// Print out the list
+	for (var i = 0; i < data.length; i++)
+	{
+		document.getElementById("src").innerHTML += data[i].name + "\n";
+	}
+
+}
+
+window.onload = init;
+
+// ]]>
+</script>
+</head>
+<body>
+<pre id="src"></pre>
+</body>
+</html>
