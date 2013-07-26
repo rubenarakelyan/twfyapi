@@ -1,13 +1,13 @@
 // **********************************************************************
 // TheyWorkForYou.com API JavaScript interface
 // Version 1.1
-// Author: Ruben Arakelyan <ruben@rubenarakelyan.com>
+// Author: Ruben Arakelyan <ruben@ra.me.uk>
 //
 // Copyright (C) 2010-2011 Ruben Arakelyan.
 // This file is licensed under the licence available at
 // http://creativecommons.org/licenses/by-sa/3.0/
 //
-// For more information, see http://tools.rubenarakelyan.com/twfyapi/
+// For more information, see https://github.com/rubenarakelyan/twfyapi
 //
 // Inspiration: WebService::TWFY::API by Spiros Denaxas
 // Available at http://search.cpan.org/~sden/WebService-TWFY-API-0.03/
