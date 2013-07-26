@@ -217,7 +217,7 @@ var OAAPI_Request =
 		var required_params = functions_params[func];
 		for (param in required_params)
 		{
-			if (args[param] == undefined)
+			if (!args.hasOwnProperty(param))
 			{
 				return false;
 			}
