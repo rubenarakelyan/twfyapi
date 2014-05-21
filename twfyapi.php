@@ -48,6 +48,10 @@ class TWFYAPI
 
         // Return the result
         curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true);
+
+        //  Follow redirects
+        //  Needed for getBoundary as the source KML comes from http://mapit.mysociety.org
+        curl_setopt($this->ch, CURLOPT_FOLLOWLOCATION, true);
     }
 
     // Default destructor
@@ -160,7 +164,7 @@ class TWFYAPI_Request
         }
         $full_url = substr($full_url, 0, -1);
 
-        return $full_url;        
+        return $full_url;
     }
 
     // Get the URL for a particular function
@@ -188,6 +192,7 @@ class TWFYAPI_Request
           'getMSP'            => 'Returns details for an MSP',
           'getMSPs'           => 'Returns list of MSPs',
           'getGeometry'       => 'Returns centre, bounding box of constituencies',
+          'getBoundary'       => 'Returns boundary polygon of UK Parliament constituency',
           'getCommittee'      => 'Returns members of Select Committee',
           'getDebates'        => 'Returns Debates (either Commons, Westminster Hall, or Lords)',
           'getWrans'          => 'Returns Written Answers',
@@ -220,7 +225,7 @@ class TWFYAPI_Request
         $valid_params = array(
           'xml'  => 'XML output',
           'php'  => 'Serialized PHP',
-          'js'   => 'a JavaScript object', 
+          'js'   => 'a JavaScript object',
           'rabx' => 'RPC over Anything But XML',
         );
 
@@ -252,6 +257,7 @@ class TWFYAPI_Request
           'getMLAs'           => array( ),
           'getMSPs'           => array( ),
           'getGeometry'       => array( ),
+          'getBoundary'       => array( 'name' ),
           'getCommittee'      => array( 'name' ),
           'getDebates'        => array( 'type' ),
           'getWrans'          => array( ),
