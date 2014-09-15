@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>TheyWorkForYou.com API JavaScript interface Test Page</title>
+<script src="twfyapi.js"></script>
+<script>
+// <![CDATA[
+function init()
+{
+	// Set up a new instance of the API binding
+	var twfyapi = new TWFYAPI.TWFYAPI("DpPSWnGj7XPRGePtfMGWvGqQ");
+	// Constituency name
+	var constituency = "Macclesfield";
+	// Get the constituency's boundary map in KML format (via http://mapit.mysociety.org)
+	twfyapi.query("getBoundary", {"output": "js", "callback": "serveKML", "name": constituency});
+}
+function serveKML(data)
+{
+	// Print out the KML source
+	document.getElementById("src").innerHTML = data;
+}
+window.onload = init;
+// ]]>
+</script>
+</head>
+<body>
+<pre id="src"></pre>
+</body>
+</html>
