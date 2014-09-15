@@ -2,10 +2,10 @@
 
 // **********************************************************************
 // OpenAustralia.org API PHP interface
-// Version 1.2
+// Version 1.3
 // Author: Ruben Arakelyan <ruben@ra.me.uk>
 //
-// Copyright (C) 2009-2010 Ruben Arakelyan.
+// Copyright (C) 2009,2010,2014 Ruben Arakelyan.
 // This file is licensed under the licence available at
 // http://creativecommons.org/licenses/by-sa/3.0/
 //
@@ -46,7 +46,7 @@ class OAAPI
         // Set the user agent
         // It does not provide OpenAustralia.org with any personal information
         // but helps them track usage of this PHP class.
-        curl_setopt($this->ch, CURLOPT_USERAGENT, 'OpenAustralia.org API PHP interface (+http://tools.rubenarakelyan.com/twfyapi/)');
+        curl_setopt($this->ch, CURLOPT_USERAGENT, 'OpenAustralia.org API PHP interface (+https://github.com/rubenarakelyan/twfyapi)');
 
         // Return the result
         curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true);
