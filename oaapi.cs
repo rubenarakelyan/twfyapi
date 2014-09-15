@@ -7,10 +7,10 @@ using System.Web;
 
 // **********************************************************************
 // OpenAustralia.org API ASP.NET interface
-// Version 1.2
+// Version 1.3
 // Author: Ruben Arakelyan <ruben@ra.me.uk>
 //
-// Copyright (C) 2009-2010 Ruben Arakelyan.
+// Copyright (C) 2009,2010,2014 Ruben Arakelyan.
 // This file is licensed under the licence available at
 // http://creativecommons.org/licenses/by-sa/3.0/
 //
@@ -73,6 +73,7 @@ namespace OAAPI
             StringBuilder result = new StringBuilder();
             byte[] buf = new byte[8192];
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
+            request.UserAgent = "OpenAustralia.org API C# interface (+https://github.com/rubenarakelyan/twfyapi)";
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
             Stream responseStream = response.GetResponseStream();
             int count = 0;
