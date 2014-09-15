@@ -7,10 +7,10 @@ using System.Web;
 
 // **********************************************************************
 // TheyWorkForYou.com API ASP.NET interface
-// Version 1.7
+// Version 1.8
 // Author: Ruben Arakelyan <ruben@ra.me.uk>
 //
-// Copyright (C) 2008-2010 Ruben Arakelyan.
+// Copyright (C) 2008,2009,2010,2014 Ruben Arakelyan.
 // This file is licensed under the licence available at
 // http://creativecommons.org/licenses/by-sa/3.0/
 //
@@ -73,6 +73,8 @@ namespace TWFYAPI
             StringBuilder result = new StringBuilder();
             byte[] buf = new byte[8192];
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
+            request.MaximumAutomaticRedirections = 1;
+            request.AllowAutoRedirect = true;
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
             Stream responseStream = response.GetResponseStream();
             int count = 0;
@@ -173,10 +175,12 @@ namespace TWFYAPI
                                                 "getMPs",
                                                 "getLord",
                                                 "getLords",
+                                                "getMLA",
                                                 "getMLAs",
                                                 "getMSP",
                                                 "getMSPs",
                                                 "getGeometry",
+                                                "getBoundary",
                                                 "getCommittee",
                                                 "getDebates",
                                                 "getWrans",
@@ -195,10 +199,12 @@ namespace TWFYAPI
                                                 "Returns list of MPs",
                                                 "Returns details for a Lord",
                                                 "Returns list of Lords",
+                                                "Returns details for an MLA",
                                                 "Returns list of MLAs",
                                                 "Returns details for an MSP",
                                                 "Returns list of MSPs",
                                                 "Returns centre, bounding box of constituencies",
+                                                "Returns boundary polygon of UK Parliament constituency",
                                                 "Returns members of Select Committee",
                                                 "Returns Debates (either Commons, Westminster Hall, or Lords)",
                                                 "Returns Written Answers",
@@ -271,9 +277,11 @@ namespace TWFYAPI
                                                 "getMPs",
                                                 "getLord",
                                                 "getLords",
+                                                "getMLA",
                                                 "getMLAs",
                                                 "getMSPs",
                                                 "getGeometry",
+                                                "getBoundary",
                                                 "getCommittee",
                                                 "getDebates",
                                                 "getWrans",
@@ -294,6 +302,8 @@ namespace TWFYAPI
                                                  "",
                                                  "",
                                                  "",
+                                                 "",
+                                                 "name",
                                                  "name",
                                                  "type",
                                                  "",
