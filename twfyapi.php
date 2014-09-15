@@ -188,7 +188,7 @@ class TWFYAPI_Request
           'getMPs'            => 'Returns list of MPs',
           'getLord'           => 'Returns details for a Lord',
           'getLords'          => 'Returns list of Lords',
-          'getMLA'            => 'Returns details for an MLA'
+          'getMLA'            => 'Returns details for an MLA',
           'getMLAs'           => 'Returns list of MLAs',
           'getMSP'            => 'Returns details for an MSP',
           'getMSPs'           => 'Returns list of MSPs',
