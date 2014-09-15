@@ -1,9 +1,9 @@
 // **********************************************************************
 // TheyWorkForYou.com API JavaScript interface
-// Version 1.1
+// Version 1.2
 // Author: Ruben Arakelyan <ruben@ra.me.uk>
 //
-// Copyright (C) 2010-2011 Ruben Arakelyan.
+// Copyright (C) 2010,2011,2014 Ruben Arakelyan.
 // This file is licensed under the licence available at
 // http://creativecommons.org/licenses/by-sa/3.0/
 //
@@ -162,10 +162,12 @@ var TWFYAPI_Request =
 			"getMPs"            : "Returns list of MPs",
 			"getLord"           : "Returns details for a Lord",
 			"getLords"          : "Returns list of Lords",
+			"getMLA"	    : "Returns details for an MLA",
 			"getMLAs"           : "Returns list of MLAs",
 			"getMSP"            : "Returns details for an MSP",
 			"getMSPs"           : "Returns list of MSPs",
 			"getGeometry"       : "Returns centre, bounding box of constituencies",
+			"getBoundary"	    : "Returns boundary polygon of UK Parliament constituency",
 			"getCommittee"      : "Returns members of Select Committee",
 			"getDebates"        : "Returns Debates (either Commons, Westminster Hall, or Lords)",
 			"getWrans"          : "Returns Written Answers",
@@ -224,9 +226,11 @@ var TWFYAPI_Request =
 			"getMPs"            : [],
 			"getLord"           : ["id"],
 			"getLords"          : [],
+			"getMLA"	    : [],
 			"getMLAs"           : [],
 			"getMSPs"           : [],
 			"getGeometry"       : [],
+			"getBoundary"	    : ["name"],
 			"getCommittee"      : ["name"],
 			"getDebates"        : ["type"],
 			"getWrans"          : [],
