@@ -2,10 +2,10 @@
 
 // **********************************************************************
 // TheyWorkForYou.com API PHP interface
-// Version 1.7
+// Version 1.8
 // Author: Ruben Arakelyan <ruben@ra.me.uk>
 //
-// Copyright (C) 1008-2010 Ruben Arakelyan.
+// Copyright (C) 2008,2009,2010,2014 Ruben Arakelyan.
 // This file is licensed under the licence available at
 // http://creativecommons.org/licenses/by-sa/3.0/
 //
@@ -44,13 +44,13 @@ class TWFYAPI
         // Set the user agent
         // It does not provide TheyWorkForYou.com with any personal information
         // but helps them track usage of this PHP class.
-        curl_setopt($this->ch, CURLOPT_USERAGENT, 'TheyWorkForYou.com API PHP interface (+http://tools.rubenarakelyan.com/twfyapi/)');
+        curl_setopt($this->ch, CURLOPT_USERAGENT, 'TheyWorkForYou.com API PHP interface (+https://github.com/rubenarakelyan/twfyapi)');
 
         // Return the result
         curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true);
 
-        //  Follow redirects
-        //  Needed for getBoundary as the source KML comes from http://mapit.mysociety.org
+        // Follow redirects
+        // Needed for getBoundary as the source KML comes from http://mapit.mysociety.org
         curl_setopt($this->ch, CURLOPT_FOLLOWLOCATION, true);
     }
 
@@ -188,6 +188,7 @@ class TWFYAPI_Request
           'getMPs'            => 'Returns list of MPs',
           'getLord'           => 'Returns details for a Lord',
           'getLords'          => 'Returns list of Lords',
+          'getMLA'            => 'Returns details for an MLA'
           'getMLAs'           => 'Returns list of MLAs',
           'getMSP'            => 'Returns details for an MSP',
           'getMSPs'           => 'Returns list of MSPs',
@@ -254,6 +255,7 @@ class TWFYAPI_Request
           'getMPs'            => array( ),
           'getLord'           => array( 'id' ),
           'getLords'          => array( ),
+          'getMLA'            => array( ),
           'getMLAs'           => array( ),
           'getMSPs'           => array( ),
           'getGeometry'       => array( ),
