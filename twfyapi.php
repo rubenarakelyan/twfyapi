@@ -294,7 +294,7 @@ class TWFYAPI_Request
 
 // Custom error handler. This isn't a real PHP error handler as we don't want text being output to the browser regardless of what happens
 
-function TWFY_error( $err_str, $output_format ){
+function TWFY_error( $err_str ){
   $error_output = 'TWFY error: ' . $err_str;
 
   // Log the error
@@ -302,6 +302,7 @@ function TWFY_error( $err_str, $output_format ){
 
   // Return an object containing a TWFY error
   $error = array('error' => $error_output);
+  $error = serialize($error);
   return $error;
 }
 
