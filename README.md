@@ -19,7 +19,7 @@ Pull requests gratefully accepted.
 
 ## Licence
 
-All files in this repository are licenced under the Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0) licence.Documentation
+All files in this repository are licenced under the Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0) licence.
 
 See http://creativecommons.org/licenses/by-sa/3.0/ for the full licence text.
 
