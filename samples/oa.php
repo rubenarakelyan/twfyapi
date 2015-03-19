@@ -1,7 +1,7 @@
 <?php
 
 // Include the API binding
-require_once 'oaapi.php';
+require_once '../oaapi.php';
 
 // Set up a new instance of the API binding
 $oaapi = new OAAPI('ChDS2CGxMoPbGzY2taAuEktx');

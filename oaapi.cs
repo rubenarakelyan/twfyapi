@@ -7,10 +7,10 @@ using System.Web;
 
 // **********************************************************************
 // OpenAustralia.org API ASP.NET interface
-// Version 1.3
+// Version 1.4
 // Author: Ruben Arakelyan <ruben@ra.me.uk>
 //
-// Copyright (C) 2009,2010,2014 Ruben Arakelyan.
+// Copyright (C) 2009,2010,2014,2015 Ruben Arakelyan.
 // This file is licensed under the licence available at
 // http://creativecommons.org/licenses/by-sa/3.0/
 //
@@ -26,25 +26,25 @@ namespace OAAPI
     {
 
         // API key
-        private String key;
+        private String api_key;
 
         // Default constructors
         public OAAPI()
         {
         }
 
-        public OAAPI(String key)
+        public OAAPI(String api_key)
         {
             // Check and set API key
-            if (key == null || key == "")
+            if (api_key == null || api_key == "")
             {
                 throw new Exception("ERROR: No API key provided.");
             }
-            if (!new Regex("^[A-Za-z0-9]+$").IsMatch(key))
+            if (!new Regex("^[A-Za-z0-9]+$").IsMatch(api_key))
             {
                 throw new Exception("ERROR: Invalid API key provided.");
             }
-            this.key = key;
+            this.api_key = api_key;
         }
 
         // Send an API query
@@ -57,7 +57,7 @@ namespace OAAPI
             }
 
             // Construct the query
-            OAAPI_Request query = new OAAPI_Request(func, args, this.key);
+            OAAPI_Request query = new OAAPI_Request(func, args, this.api_key);
 
             // Execute the query
             return this._execute_query(query);
@@ -67,12 +67,12 @@ namespace OAAPI
         private String _execute_query(OAAPI_Request query)
         {
             // Make the final URL
-            String URL = query.encode_arguments();
+            String url = query.encode_arguments();
 
             // Get the result
             StringBuilder result = new StringBuilder();
             byte[] buf = new byte[8192];
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.UserAgent = "OpenAustralia.org API C# interface (+https://github.com/rubenarakelyan/twfyapi)";
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
             Stream responseStream = response.GetResponseStream();
@@ -99,21 +99,21 @@ namespace OAAPI
         // Chosen function, arguments and API key
         private String func;
         private String[] args;
-        private String key;
+        private String api_key;
 
         // Default constructor
-        public OAAPI_Request(String func, String[] args, String key)
+        public OAAPI_Request(String func, String[] args, String api_key)
         {
             // Set function, arguments and API key
             this.func = func;
             this.args = args;
-            this.key = key;
+            this.api_key = api_key;
 
             // Get and set the URL
-            this.URL = this._get_uri_for_function(this.func);
+            this.url = this._get_uri_for_function(this.func);
 
             // Check to see if valid URL has been set
-            if (this.URL == null || this.URL == "")
+            if (this.url == null || this.url == "")
             {
                 throw new Exception("ERROR: Invalid function: " + this.func + ". Please look at the documentation for supported functions.");
             }
@@ -142,7 +142,7 @@ namespace OAAPI
             }
 
             // Assemble the URL
-            String full_url = this.URL + "?key=" + this.key + "&";
+            String full_url = this.url + "?key=" + this.api_key + "&";
             foreach (String name in this.args)
             {
                 full_url += name.Split(':')[0] + "=" + Server.UrlEncode(name.Split(':')[1]) + "&";
@@ -190,7 +190,7 @@ namespace OAAPI
             {
                 if (func == name)
                 {
-                    return this.URL + func;
+                    return this.url + func;
                 }
             }
 

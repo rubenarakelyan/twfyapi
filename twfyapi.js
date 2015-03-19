@@ -1,9 +1,11 @@
+'use strict';
+
 // **********************************************************************
 // TheyWorkForYou.com API JavaScript interface
-// Version 1.2
+// Version 1.3
 // Author: Ruben Arakelyan <ruben@ra.me.uk>
 //
-// Copyright (C) 2010,2011,2014 Ruben Arakelyan.
+// Copyright (C) 2010,2011,2014,2015 Ruben Arakelyan.
 // This file is licensed under the licence available at
 // http://creativecommons.org/licenses/by-sa/3.0/
 //
@@ -17,21 +19,21 @@ var TWFYAPI =
 {
 
 	// API key
-	key: "",
+	api_key: "",
 
 	// Default constructor
-	TWFYAPI: function(key)
+	TWFYAPI: function(api_key)
 	{
 		// Check and set API key
-		if (key == undefined || key == "")
+		if (api_key == undefined || api_key == "")
 		{
 			throw "ERROR: No API key provided.";
 		}
-		if (!key.match(/^[A-Za-z0-9]+$/))
+		if (!api_key.match(/^[A-Za-z0-9]+$/))
 		{
 			throw "ERROR: Invalid API key provided.";
 		}
-		TWFYAPI.key = key;
+		TWFYAPI.api_key = api_key;
 
 		return TWFYAPI;
 	},
@@ -46,7 +48,7 @@ var TWFYAPI =
 		}
 
 		// Construct the query
-		var query = new TWFYAPI_Request.TWFYAPI_Request(func, args, TWFYAPI.key);
+		var query = new TWFYAPI_Request.TWFYAPI_Request(func, args, TWFYAPI.api_key);
 
 		// Execute the query
 		if (query.constructor == Object)
@@ -63,11 +65,11 @@ var TWFYAPI =
 	_execute_query: function(query)
 	{
 		// Make the final URL
-		var URL = query.encode_arguments();
+		var url = query.encode_arguments();
 
 		// Load the data into the page
 		var script = document.createElement("script");
-		script.setAttribute("src", URL);
+		script.setAttribute("src", url);
 		document.getElementsByTagName("head")[0].appendChild(script); 
 	}
 
@@ -78,26 +80,26 @@ var TWFYAPI_Request =
 {
 
 	// API URL
-	URL: "http://www.theyworkforyou.com/api/",
+	url: "http://www.theyworkforyou.com/api/",
 
 	// Chosen function, arguments and API key
 	func: "",
 	args: "",
-	key: "",
+	api_key: "",
 
 	// Default constructor
-	TWFYAPI_Request: function(func, args, key)
+	TWFYAPI_Request: function(func, args, api_key)
 	{
 		// Set function, arguments and API key
 		TWFYAPI_Request.func = func;
 		TWFYAPI_Request.args = args;
-		TWFYAPI_Request.key = key;
+		TWFYAPI_Request.api_key = api_key;
 
 		// Get and set the URL
-		TWFYAPI_Request.URL = TWFYAPI_Request._get_uri_for_function(TWFYAPI_Request.func);
+		TWFYAPI_Request.url = TWFYAPI_Request._get_uri_for_function(TWFYAPI_Request.func);
 
 		// Check to see if valid URL has been set
-		if (TWFYAPI_Request.URL == undefined || TWFYAPI_Request.URL == "")
+		if (TWFYAPI_Request.url == undefined || TWFYAPI_Request.url == "")
 		{
 			throw "ERROR: Invalid function: " + TWFYAPI_Request.func + ". Please look at the documentation for supported functions.";
 		}
@@ -130,7 +132,7 @@ var TWFYAPI_Request =
 		}
 
 		// Assemble the URL
-		var full_url = TWFYAPI_Request.URL + "?key=" + TWFYAPI_Request.key + "&";
+		var full_url = TWFYAPI_Request.url + "?key=" + TWFYAPI_Request.api_key + "&";
 		var arg = Object.keys(TWFYAPI_Request.args);
 		for (var i = 0; i < arg.length; i++)
 		{
@@ -179,7 +181,7 @@ var TWFYAPI_Request =
 		// If the function exists, return its URL
 		if (valid_functions[func] != undefined)
 		{
-			return TWFYAPI_Request.URL + func;
+			return TWFYAPI_Request.url + func;
 		}
 		else
 		{
@@ -241,6 +243,7 @@ var TWFYAPI_Request =
 
 		// Check to see if all mandatory arguments are present
 		var required_params = functions_params[func];
+		var param = '';
 		for (param in required_params)
 		{
 			if (!args.hasOwnProperty(param))
@@ -254,6 +257,8 @@ var TWFYAPI_Request =
 
 };
 
+// Create our own implementation of Object.keys if the browser doesn't already
+// support it
 Object.keys = Object.keys || function(o)
 {
 	var result = [];

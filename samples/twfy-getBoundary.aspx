@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="twfyapi.cs" Src="twfyapi.cs" Inherits="TWFYAPI.TWFYAPI" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="../twfyapi.cs" Src="../twfyapi.cs" Inherits="TWFYAPI.TWFYAPI" %>
 
 <%
     // Set up a new instance of the API binding

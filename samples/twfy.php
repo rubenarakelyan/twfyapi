@@ -1,7 +1,7 @@
 <?php
 
 // Include the API binding
-require_once 'twfyapi.php';
+require_once '../twfyapi.php';
 
 // Set up a new instance of the API binding
 $twfyapi = new TWFYAPI('DpPSWnGj7XPRGePtfMGWvGqQ');

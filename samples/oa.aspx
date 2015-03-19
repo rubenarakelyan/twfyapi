@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="oaapi.cs" Src="oaapi.cs" Inherits="OAAPI.OAAPI" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="../oaapi.cs" Src="../oaapi.cs" Inherits="OAAPI.OAAPI" %>
 
 <%
     // Set up a new instance of the API binding

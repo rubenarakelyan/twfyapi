@@ -1,9 +1,11 @@
+'use strict';
+
 // **********************************************************************
 // OpenAustralia.org API JavaScript interface
-// Version 1.1
+// Version 1.2
 // Author: Ruben Arakelyan <ruben@ra.me.uk>
 //
-// Copyright (C) 2010-2011 Ruben Arakelyan.
+// Copyright (C) 2010,2011,2015 Ruben Arakelyan.
 // This file is licensed under the licence available at
 // http://creativecommons.org/licenses/by-sa/3.0/
 //
@@ -17,21 +19,21 @@ var OAAPI =
 {
 
 	// API key
-	key: "",
+	api_key: "",
 
 	// Default constructor
-	OAAPI: function(key)
+	OAAPI: function(api_key)
 	{
 		// Check and set API key
-		if (key == undefined || key == "")
+		if (api_key == undefined || api_key == "")
 		{
 			throw "ERROR: No API key provided.";
 		}
-		if (!key.match(/^[A-Za-z0-9]+$/))
+		if (!api_key.match(/^[A-Za-z0-9]+$/))
 		{
 			throw "ERROR: Invalid API key provided.";
 		}
-		OAAPI.key = key;
+		OAAPI.api_key = api_key;
 
 		return OAAPI;
 	},
@@ -46,7 +48,7 @@ var OAAPI =
 		}
 
 		// Construct the query
-		var query = new OAAPI_Request.OAAPI_Request(func, args, OAAPI.key);
+		var query = new OAAPI_Request.OAAPI_Request(func, args, OAAPI.api_key);
 
 		// Execute the query
 		if (query.constructor == Object)
@@ -63,11 +65,11 @@ var OAAPI =
 	_execute_query: function(query)
 	{
 		// Make the final URL
-		var URL = query.encode_arguments();
+		var url = query.encode_arguments();
 
 		// Load the data into the page
 		var script = document.createElement("script");
-		script.setAttribute("src", URL);
+		script.setAttribute("src", url);
 		document.getElementsByTagName("head")[0].appendChild(script); 
 	}
 
@@ -78,26 +80,26 @@ var OAAPI_Request =
 {
 
 	// API URL
-	URL: "http://www.openaustralia.org/api/",
+	url: "http://www.openaustralia.org/api/",
 
 	// Chosen function, arguments and API key
 	func: "",
 	args: "",
-	key: "",
+	api_key: "",
 
 	// Default constructor
-	OAAPI_Request: function(func, args, key)
+	OAAPI_Request: function(func, args, api_key)
 	{
 		// Set function, arguments and API key
 		OAAPI_Request.func = func;
 		OAAPI_Request.args = args;
-		OAAPI_Request.key = key;
+		OAAPI_Request.api_key = api_key;
 
 		// Get and set the URL
-		OAAPI_Request.URL = OAAPI_Request._get_uri_for_function(OAAPI_Request.func);
+		OAAPI_Request.url = OAAPI_Request._get_uri_for_function(OAAPI_Request.func);
 
 		// Check to see if valid URL has been set
-		if (OAAPI_Request.URL == undefined || OAAPI_Request.URL == "")
+		if (OAAPI_Request.url == undefined || OAAPI_Request.url == "")
 		{
 			throw "ERROR: Invalid function: " + OAAPI_Request.func + ". Please look at the documentation for supported functions.";
 		}
@@ -130,7 +132,7 @@ var OAAPI_Request =
 		}
 
 		// Assemble the URL
-		var full_url = OAAPI_Request.URL + "?key=" + OAAPI_Request.key + "&";
+		var full_url = OAAPI_Request.url + "?key=" + OAAPI_Request.api_key + "&";
 		var arg = Object.keys(OAAPI_Request.args);
 		for (var i = 0; i < arg.length; i++)
 		{
@@ -165,7 +167,7 @@ var OAAPI_Request =
 		// If the function exists, return its URL
 		if (valid_functions[func] != undefined)
 		{
-			return OAAPI_Request.URL + func;
+			return OAAPI_Request.url + func;
 		}
 		else
 		{
@@ -215,6 +217,7 @@ var OAAPI_Request =
 
 		// Check to see if all mandatory arguments are present
 		var required_params = functions_params[func];
+		var param = '';
 		for (param in required_params)
 		{
 			if (!args.hasOwnProperty(param))
@@ -228,6 +231,8 @@ var OAAPI_Request =
 
 };
 
+// Create our own implementation of Object.keys if the browser doesn't already
+// support it
 Object.keys = Object.keys || function(o)
 {
 	var result = [];
