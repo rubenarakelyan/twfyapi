@@ -30,11 +30,13 @@ class TWFYAPI
         // Check and set API key
         if (!$key)
         {
-            die('ERROR: No API key provided.');
+
+            return twfy_error( 'No API key provided' );
+
         }
         if (!preg_match('/^[A-Za-z0-9]+$/', $key))
         {
-            die('ERROR: Invalid API key provided.');
+            return twfy_error( 'Invalid API key provided.' );
         }
         $this->key = $key;
 
@@ -51,7 +53,7 @@ class TWFYAPI
 
         // Follow redirects
         // Needed for getBoundary as the source KML comes from http://mapit.mysociety.org
-        curl_setopt($this->ch, CURLOPT_FOLLOWLOCATION, true);
+        // curl_setopt($this->ch, CURLOPT_FOLLOWLOCATION, true);
     }
 
     // Default destructor
@@ -67,7 +69,7 @@ class TWFYAPI
         // Exit if any arguments are not defined
         if (!isset($func) || $func == '' || !isset($args) || $args == '' || !is_array($args))
         {
-            die('ERROR: Function name or arguments not provided.');
+            return twfy_error( 'Function name or arguments not provided.');
         }
 
         // Construct the query
@@ -80,7 +82,7 @@ class TWFYAPI
         }
         else
         {
-            die('ERROR: Could not assemble request using TWFYAPI_Request.');
+            return twfy_error( 'Could not assemble request using TWFYAPI_Request.');
         }
     }
 
@@ -99,10 +101,17 @@ class TWFYAPI
         // Find out if all is OK
         if (!$result)
         {
-            die('ERROR: cURL error occurred: ' . curl_error($this->ch));
+            return twfy_error( 'cURL error occurred: ' . curl_error($this->ch));
         }
         else
         {
+            $http_code = curl_getinfo($this->ch, CURLINFO_HTTP_CODE);
+            if($http_code == 404) {
+
+                return twfy_error( 'Could not reach TWFY server' );
+                
+            }
+
             return $result;
         }
     }
@@ -134,7 +143,7 @@ class TWFYAPI_Request
         // Check to see if valid URL has been set
         if (!isset($this->URL) || $this->URL == '')
         {
-            die('ERROR: Invalid function: ' . $this->func . '. Please look at the documentation for supported functions.');
+            return tfwfy_error( 'Invalid function: ' . $this->func . '. Please look at the documentation for supported functions.');
         }
     }
 
@@ -146,14 +155,14 @@ class TWFYAPI_Request
         {
             if (!$this->_validate_output_argument($this->args['output']))
             {
-                die('ERROR: Invalid output type: ' . $this->args['output'] . '. Please look at the documentation for supported output types.');
+                return twfy_error( 'Invalid output type: ' . $this->args['output'] . '. Please look at the documentation for supported output types.');
             }
         }
 
         // Make sure all mandatory arguments for a particular function are present
         if (!$this->_validate_arguments($this->func, $this->args))
         {
-            die('ERROR: All mandatory arguments for ' . $this->func . ' not provided.');
+            return twfy_error( 'All mandatory arguments for ' . $this->func . ' not provided.');
         }
 
         // Assemble the URL
@@ -281,7 +290,20 @@ class TWFYAPI_Request
         return true;
     }
 
+}
 
+// Custom error handler. This isn't a real PHP error handler as we don't want text being output to the browser regardless of what happens
+
+function TWFY_error( $err_str ){
+  $error_output = 'TWFY error: ' . $err_str;
+
+  // Log the error
+  error_log($error_output);
+
+  // Return an object containing a TWFY error
+  $error = array('error' => $error_output);
+  $error = serialize($error);
+  return $error;
 }
 
 ?>
