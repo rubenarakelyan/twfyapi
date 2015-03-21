@@ -1,8 +1,8 @@
 'use strict';
 
 // **********************************************************************
-// TheyWorkForYou.com API JavaScript interface
-// Version 1.3
+// TheyWorkForYou.com API JavaScript Interface
+// Version 1.4
 // Author: Ruben Arakelyan <ruben@ra.me.uk>
 //
 // Copyright (C) 2010,2011,2014,2015 Ruben Arakelyan.
@@ -122,7 +122,7 @@ var TWFYAPI_Request =
 		// Validate the callback argument
 		if (TWFYAPI_Request.args["callback"] == undefined)
 		{
-			throw "ERROR: Callback argument must be supplied for the JavaScript interface.";
+			throw "ERROR: No callback argument provided.";
 		}
 
 		// Make sure all mandatory arguments for a particular function are present

@@ -1,8 +1,8 @@
 'use strict';
 
 // **********************************************************************
-// OpenAustralia.org.au API JavaScript interface
-// Version 1.2
+// OpenAustralia.org.au API JavaScript Interface
+// Version 1.3
 // Author: Ruben Arakelyan <ruben@ra.me.uk>
 //
 // Copyright (C) 2010,2011,2015 Ruben Arakelyan.
@@ -122,7 +122,7 @@ var OAAPI_Request =
 		// Validate the callback argument
 		if (OAAPI_Request.args["callback"] == undefined)
 		{
-			throw "ERROR: Callback argument must be supplied for the JavaScript interface.";
+			throw "ERROR: No callback argument provided.";
 		}
 
 		// Make sure all mandatory arguments for a particular function are present
