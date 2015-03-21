@@ -35,11 +35,12 @@ See http://www.theyworkforyou.com/api/ and http://www.openaustralia.org.au/api/ 
 * No API key provided: No API key was provided to the constructor.
 * Invalid API key provided: The API key provided does not meet the expected format.
 * Function name or arguments not provided: Either or both of the function and/or arguments were provided to the `query` method.
-* Could not assemble request using TWFYAPI_Request: A code error occurred while attempting to construct the request to send.
-* cURL error occurred: [error message]: There was a problem when trying to contact the site; the error message will provide more details.
-* Could not reach [TWFY|OA] server: A 404 error was encountered when attempting to contact the site.
+* **PHP and JavaScript only** Could not assemble request using TWFYAPI_Request: A code error occurred while attempting to construct the request to send.
+* **PHP only** cURL error occurred: [error message]: There was a problem when trying to contact the site; the error message will provide more details.
+* **PHP only** Could not reach [TWFY|OA] server: A 404 error was encountered when attempting to contact the site.
 * Invalid function: [function name]. Please look at the documentation for supported functions: The function provided is not recognised as valid.
 * Invalid output type: [output argument]. Please look at the documentation for supported output types: The `output` argument provided is not recognised as valid.
+* **JavaScript only** No callback argument provided: No callback function was provided.
 * All mandatory arguments for [function name] not provided: One or more mandatory arguments for the selected function were not provided.
 
 ## Support
