@@ -1,7 +1,7 @@
 'use strict';
 
 // **********************************************************************
-// OpenAustralia.org API JavaScript interface
+// OpenAustralia.org.au API JavaScript interface
 // Version 1.2
 // Author: Ruben Arakelyan <ruben@ra.me.uk>
 //
@@ -80,7 +80,7 @@ var OAAPI_Request =
 {
 
 	// API URL
-	url: "http://www.openaustralia.org/api/",
+	url: "http://www.openaustralia.org.au/api/",
 
 	// Chosen function, arguments and API key
 	func: "",

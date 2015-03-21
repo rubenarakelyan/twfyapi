@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 using System.Web;
 
 // **********************************************************************
-// OpenAustralia.org API ASP.NET interface
+// OpenAustralia.org.au API ASP.NET interface
 // Version 1.4
 // Author: Ruben Arakelyan <ruben@ra.me.uk>
 //
@@ -73,7 +73,7 @@ namespace OAAPI
             StringBuilder result = new StringBuilder();
             byte[] buf = new byte[8192];
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-            request.UserAgent = "OpenAustralia.org API C# interface (+https://github.com/rubenarakelyan/twfyapi)";
+            request.UserAgent = "OpenAustralia.org.au API C# interface (+https://github.com/rubenarakelyan/twfyapi)";
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
             Stream responseStream = response.GetResponseStream();
             int count = 0;
@@ -94,7 +94,7 @@ namespace OAAPI
     {
 
         // API URL
-        private String URL = "http://www.openaustralia.org/api/";
+        private String URL = "http://www.openaustralia.org.au/api/";
 
         // Chosen function, arguments and API key
         private String func;

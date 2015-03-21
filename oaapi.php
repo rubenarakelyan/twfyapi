@@ -1,7 +1,7 @@
 <?php
 
 // **********************************************************************
-// OpenAustralia.org API PHP interface
+// OpenAustralia.org.au API PHP interface
 // Version 1.4
 // Author: Ruben Arakelyan <ruben@ra.me.uk>
 //
@@ -44,9 +44,9 @@ class OAAPI
         $this->ch = curl_init();
 
         // Set the user agent
-        // It does not provide OpenAustralia.org with any personal information
+        // It does not provide OpenAustralia.org.au with any personal information
         // but helps them track usage of this PHP class.
-        curl_setopt($this->ch, CURLOPT_USERAGENT, 'OpenAustralia.org API PHP interface (+https://github.com/rubenarakelyan/twfyapi)');
+        curl_setopt($this->ch, CURLOPT_USERAGENT, 'OpenAustralia.org.au API PHP interface (+https://github.com/rubenarakelyan/twfyapi)');
 
         // Return the result of the query
         curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true);
@@ -124,7 +124,7 @@ class OAAPI_Request
 {
 
     // API URL
-    private $url = 'http://www.openaustralia.org/api/';
+    private $url = 'http://www.openaustralia.org.au/api/';
 
     // Chosen function, arguments and API key
     private $func;
