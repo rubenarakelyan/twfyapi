@@ -273,7 +273,7 @@ class OAAPI_Request
 function _oa_error($err_str)
 {
     // Compile the error message
-    $error_output = 'OA error: ' . $err_str;
+    $error_output = 'ERROR: ' . $err_str;
     
     // Log the error
     error_log($error_output);

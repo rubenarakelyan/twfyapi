@@ -299,7 +299,7 @@ class TWFYAPI_Request
 function _twfy_error($err_str)
 {
     // Compile the error message
-    $error_output = 'TWFY error: ' . $err_str;
+    $error_output = 'ERROR: ' . $err_str;
     
     // Log the error
     error_log($error_output);
