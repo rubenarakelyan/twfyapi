@@ -1,60 +1,33 @@
 # twfyapi
 
-PHP, ASP.NET and JavaScript wrappers for the TheyWorkForYou.com and OpenAustralia.org.au APIs.
+This package provides a PHP, ASP.NET and JavaScript wrappers for the TheyWorkForYou.com and OpenAustralia.org.au APIs.
 
-## Usage
+### Requirements
 
-    // Include the API binding
-    require_once 'twfyapi.php';
-    
-    // Set up a new instance of the API binding
-    $twfyapi = new TWFYAPI('[API KEY HERE]');
-    
-    // Get a list of Labour MPs in XML format
-    $mps = $twfyapi->query('getMPs', array('output' => 'xml', 'party' => 'labour'));
-    
-    // Print out the list
-    header('Content-type: application/xml');
-    echo $mps;
+- PHP 5.5
 
-## Options
+### Installation
 
-`void TWFYAPI ( string $api_key )`
+**Composer**
 
-* `$api_key`: Your unique API key, obtained from TheyWorkForYou.com or OpenAustralia.org.au.
+Run the following to include this via Composer
 
-`mixed query ( string $func [, array $args = array() ] )`
+```shell
+composer require rubenarakelyan/twfyapi
+```
 
-* `$func`: The API function to execute.
-* `$args`: (Optional) Any data to pass to the API function, as an array of keys and values.
+### Contribution Guidelines
 
-See http://www.theyworkforyou.com/api/ and http://www.openaustralia.org.au/api/ for details of available functions and arguments.
+When contributing please consider the following guidelines:
 
-## Error messages
+- Please conform to the code style of the project.
+- All methods and classes must contain docblocks.
+- When planning a pull request to add new functionality, it may be wise to [submit a proposal](https://github.com/rubenarakelyan/twfyapi/issues/new) to ensure compatibility with the project's goals.
 
-* No API key provided: No API key was provided to the constructor.
-* Invalid API key provided: The API key provided does not meet the expected format.
-* Function name or arguments not provided: Either or both of the function and/or arguments were provided to the `query` method.
-* **(PHP and JavaScript only)** Could not assemble request using TWFYAPI_Request: A code error occurred while attempting to construct the request to send.
-* **(PHP only)** cURL error occurred: [error message]: There was a problem when trying to contact the site; the error message will provide more details.
-* **(PHP only)** Could not reach [TWFY|OA] server: A 404 error was encountered when attempting to contact the site.
-* Invalid function: [function name]. Please look at the documentation for supported functions: The function provided is not recognised as valid.
-* Invalid output type: [output argument]. Please look at the documentation for supported output types: The `output` argument provided is not recognised as valid.
-* **(JavaScript only)** No callback argument provided: No callback function was provided to pass the data to.
-* All mandatory arguments for [function name] not provided: One or more mandatory arguments for the selected function were not provided.
+### Maintainer
 
-## Support
+This package is maintained by [Ruben Arakelyan](https://ruben.am/).
 
-Please submit issues to https://github.com/rubenarakelyan/twfyapi/issues.
+### License
 
-## Contributing
-
-All pull requests are gratefully accepted.
-
-## Licence
-
-All files in this repository are licenced under the Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0) licence.
-
-See http://creativecommons.org/licenses/by-sa/3.0/ for the full licence text.
-
-Please note that data pulled by the API is licenced separately.
+This package is licensed under the [MIT license](https://github.com/rubenarakelyan/twfyapi/blob/master/LICENSE).
