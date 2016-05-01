@@ -1,6 +1,6 @@
 {
   "name": "rubenarakelyan/twfyapi",
-  "description": "PHP API to obtain statistics for your CSS from http://cssstats.com/",
+  "description": "PHP wrappers for the TheyWorkForYou.com and OpenAustralia.org.au APIs",
   "homepage": "https://github.com/rubenarakelyan/twfyapi",
   "authors": [
     {

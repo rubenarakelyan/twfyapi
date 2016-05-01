@@ -1,6 +1,6 @@
 # twfyapi
 
-This package provides a PHP, ASP.NET and JavaScript wrappers for the TheyWorkForYou.com and OpenAustralia.org.au APIs.
+This package provides PHP wrappers for the TheyWorkForYou.com and OpenAustralia.org.au APIs.
 
 ### Requirements
 
