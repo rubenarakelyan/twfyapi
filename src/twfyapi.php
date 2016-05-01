@@ -1,40 +1,26 @@
 <?php
+namespace RubenArakelyan\TWFYAPI;
 
-// **********************************************************************
-// TheyWorkForYou.com API PHP interface
-// Version 1.9
-// Author: Ruben Arakelyan <ruben@ra.me.uk>
-//
-// Copyright (C) 2008,2009,2010,2014,2015 Ruben Arakelyan.
-// This file is licensed under the licence available at
-// http://creativecommons.org/licenses/by-sa/3.0/
-//
-// For more information, see https://github.com/rubenarakelyan/twfyapi
-//
-// Inspiration: WebService::TWFY::API by Spiros Denaxas
-// Available at http://search.cpan.org/~sden/WebService-TWFY-API-0.03/
-// **********************************************************************
-
+/**
+ * Class TWFYAPI
+ * @package RubenArakelyan\TWFYAPI
+ */
 class TWFYAPI
 {
-
-    // API key
     private $api_key;
-
-    // cURL handle
     private $ch;
 
-    // Default constructor
+    /**
+     * Constructor
+     */
     public function __construct($api_key)
     {
         // Check and set API key
-        if (!$api_key)
-        {
+        if (!$api_key) {
             return _twfy_error('No API key provided.');
         }
 
-        if (!preg_match('/^[A-Za-z0-9]+$/', $api_key))
-        {
+        if (!preg_match('/^[A-Za-z0-9]+$/', $api_key)) {
             return _twfy_error('Invalid API key provided.');
         }
 
@@ -56,19 +42,24 @@ class TWFYAPI
         curl_setopt($this->ch, CURLOPT_FOLLOWLOCATION, true);
     }
 
-    // Default destructor
+    /**
+     * Destructor
+     */
     public function __destruct()
     {
         // Delete the instance of cURL
         curl_close($this->ch);
     }
 
-    // Send an API query
-    public function query($func, $args = array())
+    /**
+	 * Send an API query
+	 *
+	 * @return string
+	 */
+    public function query($func, $args = [])
     {
         // Exit if any arguments are not defined
-        if (!isset($func) || $func == '' || !isset($args) || $args == '' || !is_array($args))
-        {
+        if (!isset($func) || $func == '' || !isset($args) || $args == '' || !is_array($args)) {
             return _twfy_error('Function name or arguments not provided.');
         }
 
@@ -76,17 +67,18 @@ class TWFYAPI
         $query = new TWFYAPI_Request($func, $args, $this->api_key);
 
         // Execute the query
-        if (is_object($query))
-        {
+        if (is_object($query)) {
             return $this->_execute_query($query);
-        }
-        else
-        {
+        } else {
             return _twfy_error('Could not assemble request using TWFYAPI_Request.');
         }
     }
 
-    // Execute an API query
+    /**
+	 * Execute an API query
+	 *
+	 * @return string
+	 */
     private function _execute_query($query)
     {
         // Make the final URL
@@ -99,16 +91,13 @@ class TWFYAPI
         $result = curl_exec($this->ch);
 
         // Find out if all is OK
-        if (!$result)
-        {
+        if (!$result) {
             // A problem happened with cURL
             return _twfy_error('cURL error occurred: ' . curl_error($this->ch));
-        }
-        else
-        {
+        } else {
             $http_code = curl_getinfo($this->ch, CURLINFO_HTTP_CODE);
-            if ($http_code == 404)
-            {
+
+            if ($http_code == 404) {
                 // Received a 404 error querying the API
                 return _twfy_error('Could not reach TWFY server.');
             }
@@ -116,21 +105,21 @@ class TWFYAPI
             return $result;
         }
     }
-
 }
 
-
+/**
+ * Class TWFYAPI_Request
+ * @package RubenArakelyan\TWFYAPI
+ */
 class TWFYAPI_Request
 {
-
-    // API URL
     private $url = 'http://www.theyworkforyou.com/api/';
-
-    // Chosen function, arguments and API key
     private $func;
     private $args;
 
-    // Default constructor
+    /**
+     * Constructor
+     */
     public function __construct($func, $args, $api_key)
     {
         // Set function, arguments and API key
@@ -142,47 +131,51 @@ class TWFYAPI_Request
         $this->url = $this->_get_uri_for_function($this->func);
 
         // Check to see if valid URL has been set
-        if (!isset($this->url) || $this->url == '')
-        {
+        if (!isset($this->url) || $this->url == '') {
             return _twfy_error('Invalid function: ' . $this->func . '. Please look at the documentation for supported functions.');
         }
     }
 
-    // Encode function arguments into a URL query string
+    /**
+	 * Encode function arguments into a URL query string
+	 *
+	 * @return string
+	 */
     public function encode_arguments()
     {
         // Validate the output argument if it exists
-        if (array_key_exists('output', $this->args))
-        {
-            if (!$this->_validate_output_argument($this->args['output']))
-            {
+        if (array_key_exists('output', $this->args)) {
+            if (!$this->_validate_output_argument($this->args['output'])) {
                 return _twfy_error('Invalid output type: ' . $this->args['output'] . '. Please look at the documentation for supported output types.');
             }
         }
 
         // Make sure all mandatory arguments for a particular function are present
-        if (!$this->_validate_arguments($this->func, $this->args))
-        {
+        if (!$this->_validate_arguments($this->func, $this->args)) {
             return _twfy_error('All mandatory arguments for ' . $this->func . ' not provided.');
         }
 
         // Assemble the URL
         $full_url = $this->url . '?key=' . $this->api_key . '&';
-        foreach ($this->args as $name => $value)
-        {
+
+        foreach ($this->args as $name => $value) {
             $full_url .= $name . '=' . urlencode($value) . '&';
         }
+
         $full_url = substr($full_url, 0, -1);
 
         return $full_url;
     }
 
-    // Get the URL for a particular function
+    /**
+	 * Get the URL for a particular function
+	 *
+	 * @return string
+	 */
     private function _get_uri_for_function($func)
     {
         // Exit if any arguments are not defined
-        if (!isset($func) || $func == '')
-        {
+        if (!isset($func) || $func == '') {
             return '';
         }
 
@@ -213,22 +206,22 @@ class TWFYAPI_Request
         );
 
         // If the function exists, return its URL
-        if (array_key_exists($func, $valid_functions))
-        {
+        if (array_key_exists($func, $valid_functions)) {
             return $this->url . $func;
-        }
-        else
-        {
+        } else {
             return '';
         }
     }
 
-    // Validate the "output" argument
+    /**
+	 * Validate the "output" argument
+	 *
+	 * @return boolean
+	 */
     private function _validate_output_argument($output)
     {
         // Exit if any arguments are not defined
-        if (!isset($output) || $output == '')
-        {
+        if (!isset($output) || $output == '') {
             return false;
         }
 
@@ -241,17 +234,18 @@ class TWFYAPI_Request
         );
 
         // Check to see if the output type provided is valid
-        if (array_key_exists($output, $valid_params))
-        {
+        if (array_key_exists($output, $valid_params)) {
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
 
-    // Validate arguments
+    /**
+	 * Validate arguments
+	 *
+	 * @return boolean
+	 */
     private function _validate_arguments($func, $args)
     {
         // Define manadatory arguments
@@ -280,10 +274,9 @@ class TWFYAPI_Request
 
         // Check to see if all mandatory arguments are present
         $required_params = $functions_params[$func];
-        foreach ($required_params as $param)
-        {
-            if (!isset($args[$param]))
-            {
+
+        foreach ($required_params as $param) {
+            if (!isset($args[$param])) {
                 return false;
             }
         }
@@ -305,9 +298,7 @@ function _twfy_error($err_str)
     error_log($error_output);
     
     // Return an object containing a TWFY error
-    $error = array('error' => $error_output);
+    $error = ['error' => $error_output];
     $error = serialize($error);
     return $error;
 }
-
-?>
