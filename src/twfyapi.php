@@ -113,7 +113,7 @@ class TWFYAPI
  */
 class TWFYAPI_Request
 {
-    private $url = 'http://www.theyworkforyou.com/api/';
+    private $url = 'https://www.theyworkforyou.com/api/';
     private $func;
     private $args;
 
